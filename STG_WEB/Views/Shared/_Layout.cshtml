@@ -24,6 +24,22 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Schools", "Index", "Schools")</li>
+                            <li>@Html.ActionLink("Rooms", "Index", "Rooms")</li>
+                            <li>@Html.ActionLink("RoomTypes", "Index", "RoomTypes")</li>
+                            <li>@Html.ActionLink("Teachers", "Index", "Teachers")</li>
+                            <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                            <li>@Html.ActionLink("Subjects", "Index", "Subjects")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("SchoolTeachers", "Index", "SchoolTeachers")</li>
+                            <li>@Html.ActionLink("GroupSubjectTeachers", "Index", "GroupSubjectTeachers")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Timetables", "Timetables", "Home")</li>                           
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

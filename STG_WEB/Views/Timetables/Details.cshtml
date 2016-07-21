@@ -1,0 +1,74 @@
+﻿@model STG_WEB.Models.Timetable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Timetable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Part)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Part)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.School.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.School.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupSubjectTeacher.Schedule)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupSubjectTeacher.Schedule)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Room.Nr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Room.Nr)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
