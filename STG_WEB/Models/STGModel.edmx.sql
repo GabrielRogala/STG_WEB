@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/18/2016 22:19:26
--- Generated from EDMX file: F:\AGH\INŻ\STG_WEB\STG_WEB\STG_WEB\Models\STGModel.edmx
+-- Date Created: 07/25/2016 19:48:29
+-- Generated from EDMX file: F:\AGH\INŻ\project\STG_WEB\STG_WEB\Models\STGModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -23,19 +23,64 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AspNetUserLogins] DROP CONSTRAINT [FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId];
 GO
-IF OBJECT_ID(N'[dbo].[FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId];
+IF OBJECT_ID(N'[dbo].[FK_AspNetUserRoles_AspNetRoles]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_AspNetUserRoles_AspNetRoles];
 GO
-IF OBJECT_ID(N'[dbo].[FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId];
+IF OBJECT_ID(N'[dbo].[FK_AspNetUserRoles_AspNetUsers]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AspNetUserRoles] DROP CONSTRAINT [FK_AspNetUserRoles_AspNetUsers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TeacherGroupSubjectTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupSubjectTeacher] DROP CONSTRAINT [FK_TeacherGroupSubjectTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupGroupSubjectTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupSubjectTeacher] DROP CONSTRAINT [FK_GroupGroupSubjectTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SubjectGroupSubjectTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupSubjectTeacher] DROP CONSTRAINT [FK_SubjectGroupSubjectTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomTypeGroupSubjectTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupSubjectTeacher] DROP CONSTRAINT [FK_RoomTypeGroupSubjectTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomTypeRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Room] DROP CONSTRAINT [FK_RoomTypeRoom];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SchoolSubject]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Subject] DROP CONSTRAINT [FK_SchoolSubject];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SchoolRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Room] DROP CONSTRAINT [FK_SchoolRoom];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SchoolGroup]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Group] DROP CONSTRAINT [FK_SchoolGroup];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SchoolTimetable]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Timetable] DROP CONSTRAINT [FK_SchoolTimetable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupSubjectTeacherTimetable]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Timetable] DROP CONSTRAINT [FK_GroupSubjectTeacherTimetable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomTimetable]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Timetable] DROP CONSTRAINT [FK_RoomTimetable];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AspNetUsersTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Teacher] DROP CONSTRAINT [FK_AspNetUsersTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AspNetUsersSchool]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[School] DROP CONSTRAINT [FK_AspNetUsersSchool];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SchoolSchoolTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SchoolTeacher] DROP CONSTRAINT [FK_SchoolSchoolTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TeacherSchoolTeacher]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SchoolTeacher] DROP CONSTRAINT [FK_TeacherSchoolTeacher];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[__MigrationHistory]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[__MigrationHistory];
+IF OBJECT_ID(N'[dbo].[C__MigrationHistory]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[C__MigrationHistory];
 GO
 IF OBJECT_ID(N'[dbo].[AspNetRoles]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetRoles];
@@ -46,11 +91,38 @@ GO
 IF OBJECT_ID(N'[dbo].[AspNetUserLogins]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetUserLogins];
 GO
-IF OBJECT_ID(N'[dbo].[AspNetUserRoles]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AspNetUserRoles];
-GO
 IF OBJECT_ID(N'[dbo].[AspNetUsers]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AspNetUsers];
+GO
+IF OBJECT_ID(N'[dbo].[Teacher]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Teacher];
+GO
+IF OBJECT_ID(N'[dbo].[Subject]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Subject];
+GO
+IF OBJECT_ID(N'[dbo].[Group]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Group];
+GO
+IF OBJECT_ID(N'[dbo].[RoomType]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RoomType];
+GO
+IF OBJECT_ID(N'[dbo].[Room]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Room];
+GO
+IF OBJECT_ID(N'[dbo].[GroupSubjectTeacher]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GroupSubjectTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[Timetable]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Timetable];
+GO
+IF OBJECT_ID(N'[dbo].[School]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[School];
+GO
+IF OBJECT_ID(N'[dbo].[SchoolTeacher]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SchoolTeacher];
+GO
+IF OBJECT_ID(N'[dbo].[AspNetUserRoles]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AspNetUserRoles];
 GO
 
 -- --------------------------------------------------
@@ -189,8 +261,18 @@ GO
 
 -- Creating table 'SchoolTeacher'
 CREATE TABLE [dbo].[SchoolTeacher] (
-    [TeacherId] int  NOT NULL,
-    [SchoolId] int  NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [SchoolId] int  NOT NULL,
+    [TeacherId] int  NOT NULL
+);
+GO
+
+-- Creating table 'UnavaliableHours'
+CREATE TABLE [dbo].[UnavaliableHours] (
+    [SchoolTeacherId] int  NOT NULL,
+    [Year] nvarchar(max)  NOT NULL,
+    [Semester] nvarchar(max)  NOT NULL,
+    [Hours] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -283,10 +365,16 @@ ADD CONSTRAINT [PK_School]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [TeacherId], [SchoolId] in table 'SchoolTeacher'
+-- Creating primary key on [Id] in table 'SchoolTeacher'
 ALTER TABLE [dbo].[SchoolTeacher]
 ADD CONSTRAINT [PK_SchoolTeacher]
-    PRIMARY KEY CLUSTERED ([TeacherId], [SchoolId] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [SchoolTeacherId], [Year], [Semester] in table 'UnavaliableHours'
+ALTER TABLE [dbo].[UnavaliableHours]
+ADD CONSTRAINT [PK_UnavaliableHours]
+    PRIMARY KEY CLUSTERED ([SchoolTeacherId], [Year], [Semester] ASC);
 GO
 
 -- Creating primary key on [AspNetRoles_Id], [AspNetUsers_Id] in table 'AspNetUserRoles'
@@ -428,30 +516,6 @@ ON [dbo].[Room]
     ([RoomTypeId]);
 GO
 
--- Creating foreign key on [TeacherId] in table 'SchoolTeacher'
-ALTER TABLE [dbo].[SchoolTeacher]
-ADD CONSTRAINT [FK_TeacherSchoolTeacher]
-    FOREIGN KEY ([TeacherId])
-    REFERENCES [dbo].[Teacher]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [SchoolId] in table 'SchoolTeacher'
-ALTER TABLE [dbo].[SchoolTeacher]
-ADD CONSTRAINT [FK_SchoolSchoolTeacher]
-    FOREIGN KEY ([SchoolId])
-    REFERENCES [dbo].[School]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SchoolSchoolTeacher'
-CREATE INDEX [IX_FK_SchoolSchoolTeacher]
-ON [dbo].[SchoolTeacher]
-    ([SchoolId]);
-GO
-
 -- Creating foreign key on [SchoolId] in table 'Subject'
 ALTER TABLE [dbo].[Subject]
 ADD CONSTRAINT [FK_SchoolSubject]
@@ -570,6 +634,45 @@ GO
 CREATE INDEX [IX_FK_AspNetUsersSchool]
 ON [dbo].[School]
     ([AspNetUsersId]);
+GO
+
+-- Creating foreign key on [SchoolId] in table 'SchoolTeacher'
+ALTER TABLE [dbo].[SchoolTeacher]
+ADD CONSTRAINT [FK_SchoolSchoolTeacher]
+    FOREIGN KEY ([SchoolId])
+    REFERENCES [dbo].[School]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SchoolSchoolTeacher'
+CREATE INDEX [IX_FK_SchoolSchoolTeacher]
+ON [dbo].[SchoolTeacher]
+    ([SchoolId]);
+GO
+
+-- Creating foreign key on [TeacherId] in table 'SchoolTeacher'
+ALTER TABLE [dbo].[SchoolTeacher]
+ADD CONSTRAINT [FK_TeacherSchoolTeacher]
+    FOREIGN KEY ([TeacherId])
+    REFERENCES [dbo].[Teacher]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_TeacherSchoolTeacher'
+CREATE INDEX [IX_FK_TeacherSchoolTeacher]
+ON [dbo].[SchoolTeacher]
+    ([TeacherId]);
+GO
+
+-- Creating foreign key on [SchoolTeacherId] in table 'UnavaliableHours'
+ALTER TABLE [dbo].[UnavaliableHours]
+ADD CONSTRAINT [FK_SchoolTeacherUnavaliableHours]
+    FOREIGN KEY ([SchoolTeacherId])
+    REFERENCES [dbo].[SchoolTeacher]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- --------------------------------------------------

@@ -17,7 +17,7 @@ namespace STG_WEB.Controllers
         // GET: SchoolTeachers
         public ActionResult Index()
         {
-            var schoolTeacher = db.SchoolTeacher.Include(s => s.Teacher).Include(s => s.School);
+            var schoolTeacher = db.SchoolTeacher.Include(s => s.School).Include(s => s.Teacher);
             return View(schoolTeacher.ToList());
         }
 
@@ -39,8 +39,8 @@ namespace STG_WEB.Controllers
         // GET: SchoolTeachers/Create
         public ActionResult Create()
         {
-            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name");
             ViewBag.SchoolId = new SelectList(db.School, "Id", "Name");
+            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace STG_WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TeacherId,SchoolId")] SchoolTeacher schoolTeacher)
+        public ActionResult Create([Bind(Include = "Id,SchoolId,TeacherId")] SchoolTeacher schoolTeacher)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +58,8 @@ namespace STG_WEB.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", schoolTeacher.SchoolId);
+            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             return View(schoolTeacher);
         }
 
@@ -75,8 +75,8 @@ namespace STG_WEB.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", schoolTeacher.SchoolId);
+            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             return View(schoolTeacher);
         }
 
@@ -85,7 +85,7 @@ namespace STG_WEB.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TeacherId,SchoolId")] SchoolTeacher schoolTeacher)
+        public ActionResult Edit([Bind(Include = "Id,SchoolId,TeacherId")] SchoolTeacher schoolTeacher)
         {
             if (ModelState.IsValid)
             {
@@ -93,8 +93,8 @@ namespace STG_WEB.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", schoolTeacher.SchoolId);
+            ViewBag.TeacherId = new SelectList(db.Teacher, "Id", "Name", schoolTeacher.TeacherId);
             return View(schoolTeacher);
         }
 

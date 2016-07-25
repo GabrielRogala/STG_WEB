@@ -8,114 +8,114 @@ using System.Web;
 using System.Web.Mvc;
 using STG_WEB.Models;
 
-namespace STG_WEB.Content
+namespace STG_WEB.Controllers
 {
-    public class GroupsController : Controller
+    public class UnavaliableHoursController : Controller
     {
         private STGEntities db = new STGEntities();
 
-        // GET: Groups
+        // GET: UnavaliableHours
         public ActionResult Index()
         {
-            var group = db.Group.Include(g => g.School);
-            return View(group.ToList());
+            var unavaliableHours = db.UnavaliableHours.Include(u => u.SchoolTeacher);
+            return View(unavaliableHours.ToList());
         }
 
-        // GET: Groups/Details/5
+        // GET: UnavaliableHours/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Group.Find(id);
-            if (group == null)
+            UnavaliableHours unavaliableHours = db.UnavaliableHours.Find(id);
+            if (unavaliableHours == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(unavaliableHours);
         }
 
-        // GET: Groups/Create
+        // GET: UnavaliableHours/Create
         public ActionResult Create()
         {
-            ViewBag.SchoolId = new SelectList(db.School, "Id", "Name");
+            ViewBag.SchoolTeacherId = new SelectList(db.SchoolTeacher, "Id", "Id");
             return View();
         }
 
-        // POST: Groups/Create
+        // POST: UnavaliableHours/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ShortName,Count,SchoolId")] Group group)
+        public ActionResult Create([Bind(Include = "SchoolTeacherId,Year,Semester,Hours")] UnavaliableHours unavaliableHours)
         {
             if (ModelState.IsValid)
             {
-                db.Group.Add(group);
+                db.UnavaliableHours.Add(unavaliableHours);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", group.SchoolId);
-            return View(group);
+            ViewBag.SchoolTeacherId = new SelectList(db.SchoolTeacher, "Id", "Id", unavaliableHours.SchoolTeacherId);
+            return View(unavaliableHours);
         }
 
-        // GET: Groups/Edit/5
+        // GET: UnavaliableHours/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Group.Find(id);
-            if (group == null)
+            UnavaliableHours unavaliableHours = db.UnavaliableHours.Find(id);
+            if (unavaliableHours == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", group.SchoolId);
-            return View(group);
+            ViewBag.SchoolTeacherId = new SelectList(db.SchoolTeacher, "Id", "Id", unavaliableHours.SchoolTeacherId);
+            return View(unavaliableHours);
         }
 
-        // POST: Groups/Edit/5
+        // POST: UnavaliableHours/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ShortName,Count,SchoolId")] Group group)
+        public ActionResult Edit([Bind(Include = "SchoolTeacherId,Year,Semester,Hours")] UnavaliableHours unavaliableHours)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(group).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(unavaliableHours).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SchoolId = new SelectList(db.School, "Id", "Name", group.SchoolId);
-            return View(group);
+            ViewBag.SchoolTeacherId = new SelectList(db.SchoolTeacher, "Id", "Id", unavaliableHours.SchoolTeacherId);
+            return View(unavaliableHours);
         }
 
-        // GET: Groups/Delete/5
+        // GET: UnavaliableHours/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Group group = db.Group.Find(id);
-            if (group == null)
+            UnavaliableHours unavaliableHours = db.UnavaliableHours.Find(id);
+            if (unavaliableHours == null)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            return View(unavaliableHours);
         }
 
-        // POST: Groups/Delete/5
+        // POST: UnavaliableHours/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Group group = db.Group.Find(id);
-            db.Group.Remove(group);
+            UnavaliableHours unavaliableHours = db.UnavaliableHours.Find(id);
+            db.UnavaliableHours.Remove(unavaliableHours);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

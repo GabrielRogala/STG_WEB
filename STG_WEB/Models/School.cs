@@ -17,19 +17,17 @@ namespace STG_WEB.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public School()
         {
-            this.SchoolTeacher = new HashSet<SchoolTeacher>();
             this.Subject = new HashSet<Subject>();
             this.Room = new HashSet<Room>();
             this.Group = new HashSet<Group>();
             this.Timetable = new HashSet<Timetable>();
+            this.SchoolTeacher = new HashSet<SchoolTeacher>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string AspNetUsersId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SchoolTeacher> SchoolTeacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Subject> Subject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -39,5 +37,7 @@ namespace STG_WEB.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Timetable> Timetable { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SchoolTeacher> SchoolTeacher { get; set; }
     }
 }

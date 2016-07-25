@@ -147,8 +147,19 @@
     <EntitySetMapping Name="SchoolTeacher">
       <EntityTypeMapping TypeName="IsTypeOf(Model.SchoolTeacher)">
         <MappingFragment StoreEntitySet="SchoolTeacher">
-          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnavaliableHours">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UnavaliableHours)">
+        <MappingFragment StoreEntitySet="UnavaliableHours">
+          <ScalarProperty Name="SchoolTeacherId" ColumnName="SchoolTeacherId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

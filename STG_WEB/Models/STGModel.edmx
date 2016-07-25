@@ -20,6 +20,7 @@
     <EntitySet Name="Timetable" EntityType="Model.Store.Timetable" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="School" EntityType="Model.Store.School" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SchoolTeacher" EntityType="Model.Store.SchoolTeacher" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UnavaliableHours" EntityType="Model.Store.UnavaliableHours" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AspNetUserRoles" EntityType="Model.Store.AspNetUserRoles" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Model.Store.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -57,14 +58,6 @@
       <End Role="RoomType" EntitySet="RoomType" />
       <End Role="Room" EntitySet="Room" />
     </AssociationSet>
-    <AssociationSet Name="TeacherSchoolTeacher" Association="Model.Store.TeacherSchoolTeacher">
-      <End Role="Teacher" EntitySet="Teacher" />
-      <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
-    </AssociationSet>
-    <AssociationSet Name="SchoolSchoolTeacher" Association="Model.Store.SchoolSchoolTeacher">
-      <End Role="School" EntitySet="School" />
-      <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
-    </AssociationSet>
     <AssociationSet Name="SchoolSubject" Association="Model.Store.SchoolSubject">
       <End Role="School" EntitySet="School" />
       <End Role="Subject" EntitySet="Subject" />
@@ -96,6 +89,18 @@
     <AssociationSet Name="AspNetUsersSchool" Association="Model.Store.AspNetUsersSchool">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="School" EntitySet="School" />
+    </AssociationSet>
+    <AssociationSet Name="SchoolSchoolTeacher" Association="Model.Store.SchoolSchoolTeacher">
+      <End Role="School" EntitySet="School" />
+      <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+    </AssociationSet>
+    <AssociationSet Name="TeacherSchoolTeacher" Association="Model.Store.TeacherSchoolTeacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+    </AssociationSet>
+    <AssociationSet Name="SchoolTeacherUnavaliableHours" Association="Model.Store.SchoolTeacherUnavaliableHours">
+      <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+      <End Role="UnavaliableHours" EntitySet="UnavaliableHours" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -236,11 +241,22 @@
   </EntityType>
   <EntityType Name="SchoolTeacher">
     <Key>
-      <PropertyRef Name="TeacherId" />
-      <PropertyRef Name="SchoolId" />
+      <PropertyRef Name="Id" />
     </Key>
-    <Property Name="TeacherId" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SchoolId" Type="int" Nullable="false" />
+    <Property Name="TeacherId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnavaliableHours">
+    <Key>
+      <PropertyRef Name="SchoolTeacherId" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="Semester" />
+    </Key>
+    <Property Name="SchoolTeacherId" Type="int" Nullable="false" />
+    <Property Name="Year" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Semester" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Hours" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetUserRoles">
     <Key>
@@ -335,30 +351,6 @@
       </Principal>
       <Dependent Role="Room">
         <PropertyRef Name="RoomTypeId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="TeacherSchoolTeacher">
-    <End Role="Teacher" Type="Model.Store.Teacher" Multiplicity="1" />
-    <End Role="SchoolTeacher" Type="Model.Store.SchoolTeacher" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Teacher">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SchoolTeacher">
-        <PropertyRef Name="TeacherId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="SchoolSchoolTeacher">
-    <End Role="School" Type="Model.Store.School" Multiplicity="1" />
-    <End Role="SchoolTeacher" Type="Model.Store.SchoolTeacher" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="School">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SchoolTeacher">
-        <PropertyRef Name="SchoolId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -461,6 +453,42 @@
       </Principal>
       <Dependent Role="School">
         <PropertyRef Name="AspNetUsersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SchoolSchoolTeacher">
+    <End Role="School" Type="Model.Store.School" Multiplicity="1" />
+    <End Role="SchoolTeacher" Type="Model.Store.SchoolTeacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="School">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchoolTeacher">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TeacherSchoolTeacher">
+    <End Role="Teacher" Type="Model.Store.Teacher" Multiplicity="1" />
+    <End Role="SchoolTeacher" Type="Model.Store.SchoolTeacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SchoolTeacher">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SchoolTeacherUnavaliableHours">
+    <End Role="SchoolTeacher" Type="Model.Store.SchoolTeacher" Multiplicity="1" />
+    <End Role="UnavaliableHours" Type="Model.Store.UnavaliableHours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SchoolTeacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UnavaliableHours">
+        <PropertyRef Name="SchoolTeacherId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -631,15 +659,6 @@
             <End Role="Room" EntitySet="Room" />
           </AssociationSet>
           <EntitySet Name="School" EntityType="Model.School" />
-          <EntitySet Name="SchoolTeacher" EntityType="Model.SchoolTeacher" />
-          <AssociationSet Name="TeacherSchoolTeacher" Association="Model.TeacherSchoolTeacher">
-            <End Role="Teacher" EntitySet="Teacher" />
-            <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
-          </AssociationSet>
-          <AssociationSet Name="SchoolSchoolTeacher" Association="Model.SchoolSchoolTeacher">
-            <End Role="School" EntitySet="School" />
-            <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
-          </AssociationSet>
           <AssociationSet Name="SchoolSubject" Association="Model.SchoolSubject">
             <End Role="School" EntitySet="School" />
             <End Role="Subject" EntitySet="Subject" />
@@ -672,6 +691,20 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="School" EntitySet="School" />
           </AssociationSet>
+          <EntitySet Name="SchoolTeacher" EntityType="Model.SchoolTeacher" />
+          <AssociationSet Name="SchoolSchoolTeacher" Association="Model.SchoolSchoolTeacher">
+            <End Role="School" EntitySet="School" />
+            <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+          </AssociationSet>
+          <AssociationSet Name="TeacherSchoolTeacher" Association="Model.TeacherSchoolTeacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+          </AssociationSet>
+          <EntitySet Name="UnavaliableHours" EntityType="Model.UnavaliableHours" />
+          <AssociationSet Name="SchoolTeacherUnavaliableHours" Association="Model.SchoolTeacherUnavaliableHours">
+            <End Role="SchoolTeacher" EntitySet="SchoolTeacher" />
+            <End Role="UnavaliableHours" EntitySet="UnavaliableHours" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Teacher">
           <Key>
@@ -681,9 +714,9 @@
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="LastName" Type="String" Nullable="false" />
           <NavigationProperty Name="GroupSubjectTeacher" Relationship="Model.TeacherGroupSubjectTeacher" FromRole="Teacher" ToRole="GroupSubjectTeacher" />
-          <NavigationProperty Name="SchoolTeacher" Relationship="Model.TeacherSchoolTeacher" FromRole="Teacher" ToRole="SchoolTeacher" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.AspNetUsersTeacher" FromRole="Teacher" ToRole="AspNetUsers" />
           <Property Name="AspNetUsersId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SchoolTeacher" Relationship="Model.TeacherSchoolTeacher" FromRole="Teacher" ToRole="SchoolTeacher" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -834,48 +867,14 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <NavigationProperty Name="SchoolTeacher" Relationship="Model.SchoolSchoolTeacher" FromRole="School" ToRole="SchoolTeacher" />
           <NavigationProperty Name="Subject" Relationship="Model.SchoolSubject" FromRole="School" ToRole="Subject" />
           <NavigationProperty Name="Room" Relationship="Model.SchoolRoom" FromRole="School" ToRole="Room" />
           <NavigationProperty Name="Group" Relationship="Model.SchoolGroup" FromRole="School" ToRole="Group" />
           <NavigationProperty Name="Timetable" Relationship="Model.SchoolTimetable" FromRole="School" ToRole="Timetable" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.AspNetUsersSchool" FromRole="School" ToRole="AspNetUsers" />
           <Property Name="AspNetUsersId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SchoolTeacher" Relationship="Model.SchoolSchoolTeacher" FromRole="School" ToRole="SchoolTeacher" />
         </EntityType>
-        <EntityType Name="SchoolTeacher">
-          <Key>
-            <PropertyRef Name="TeacherId" />
-            <PropertyRef Name="SchoolId" />
-          </Key>
-          <NavigationProperty Name="Teacher" Relationship="Model.TeacherSchoolTeacher" FromRole="SchoolTeacher" ToRole="Teacher" />
-          <Property Name="TeacherId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="School" Relationship="Model.SchoolSchoolTeacher" FromRole="SchoolTeacher" ToRole="School" />
-          <Property Name="SchoolId" Type="Int32" Nullable="false" />
-        </EntityType>
-        <Association Name="TeacherSchoolTeacher">
-          <End Type="Model.Teacher" Role="Teacher" Multiplicity="1" />
-          <End Type="Model.SchoolTeacher" Role="SchoolTeacher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SchoolTeacher">
-              <PropertyRef Name="TeacherId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="SchoolSchoolTeacher">
-          <End Type="Model.School" Role="School" Multiplicity="1" />
-          <End Type="Model.SchoolTeacher" Role="SchoolTeacher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="School">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SchoolTeacher">
-              <PropertyRef Name="SchoolId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="SchoolSubject">
           <End Type="Model.School" Role="School" Multiplicity="1" />
           <End Type="Model.Subject" Role="Subject" Multiplicity="*" />
@@ -975,6 +974,65 @@
             </Principal>
             <Dependent Role="School">
               <PropertyRef Name="AspNetUsersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SchoolTeacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="School" Relationship="Model.SchoolSchoolTeacher" FromRole="SchoolTeacher" ToRole="School" />
+          <Property Name="SchoolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Teacher" Relationship="Model.TeacherSchoolTeacher" FromRole="SchoolTeacher" ToRole="Teacher" />
+          <Property Name="TeacherId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UnavaliableHours" Relationship="Model.SchoolTeacherUnavaliableHours" FromRole="SchoolTeacher" ToRole="UnavaliableHours" />
+        </EntityType>
+        <Association Name="SchoolSchoolTeacher">
+          <End Type="Model.School" Role="School" Multiplicity="1" />
+          <End Type="Model.SchoolTeacher" Role="SchoolTeacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="School">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchoolTeacher">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TeacherSchoolTeacher">
+          <End Type="Model.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="Model.SchoolTeacher" Role="SchoolTeacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SchoolTeacher">
+              <PropertyRef Name="TeacherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UnavaliableHours">
+          <Key>
+            <PropertyRef Name="SchoolTeacherId" />
+            <PropertyRef Name="Year" />
+            <PropertyRef Name="Semester" />
+          </Key>
+          <NavigationProperty Name="SchoolTeacher" Relationship="Model.SchoolTeacherUnavaliableHours" FromRole="UnavaliableHours" ToRole="SchoolTeacher" />
+          <Property Name="SchoolTeacherId" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="String" Nullable="false" />
+          <Property Name="Semester" Type="String" Nullable="false" />
+          <Property Name="Hours" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="SchoolTeacherUnavaliableHours">
+          <End Type="Model.SchoolTeacher" Role="SchoolTeacher" Multiplicity="1" />
+          <End Type="Model.UnavaliableHours" Role="UnavaliableHours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SchoolTeacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UnavaliableHours">
+              <PropertyRef Name="SchoolTeacherId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1130,8 +1188,19 @@
     <EntitySetMapping Name="SchoolTeacher">
       <EntityTypeMapping TypeName="IsTypeOf(Model.SchoolTeacher)">
         <MappingFragment StoreEntitySet="SchoolTeacher">
-          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="TeacherId" ColumnName="TeacherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnavaliableHours">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.UnavaliableHours)">
+        <MappingFragment StoreEntitySet="UnavaliableHours">
+          <ScalarProperty Name="SchoolTeacherId" ColumnName="SchoolTeacherId" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

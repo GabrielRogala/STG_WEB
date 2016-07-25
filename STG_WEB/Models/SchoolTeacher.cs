@@ -14,10 +14,19 @@ namespace STG_WEB.Models
     
     public partial class SchoolTeacher
     {
-        public int TeacherId { get; set; }
-        public int SchoolId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SchoolTeacher()
+        {
+            this.UnavaliableHours = new HashSet<UnavaliableHours>();
+        }
     
-        public virtual Teacher Teacher { get; set; }
+        public int Id { get; set; }
+        public int SchoolId { get; set; }
+        public int TeacherId { get; set; }
+    
         public virtual School School { get; set; }
+        public virtual Teacher Teacher { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UnavaliableHours> UnavaliableHours { get; set; }
     }
 }

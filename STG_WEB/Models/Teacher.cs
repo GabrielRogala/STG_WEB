@@ -28,8 +28,8 @@ namespace STG_WEB.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GroupSubjectTeacher> GroupSubjectTeacher { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SchoolTeacher> SchoolTeacher { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

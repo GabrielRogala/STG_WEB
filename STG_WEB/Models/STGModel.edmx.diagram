@@ -6,10 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="813d3173ddb440c58e71f053362d6a40" Name="Diagram1">
         <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="1.5" PointY="5" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="3.875" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="3" PointY="10.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
@@ -26,9 +26,6 @@
         <AssociationConnector Association="Model.RoomTypeGroupSubjectTeacher" />
         <AssociationConnector Association="Model.RoomTypeRoom" />
         <EntityTypeShape EntityType="Model.School" Width="1.5" PointX="5.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.SchoolTeacher" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
-        <AssociationConnector Association="Model.TeacherSchoolTeacher" />
-        <AssociationConnector Association="Model.SchoolSchoolTeacher" />
         <AssociationConnector Association="Model.SchoolSubject" />
         <AssociationConnector Association="Model.SchoolRoom" />
         <AssociationConnector Association="Model.SchoolGroup" />
@@ -37,6 +34,11 @@
         <AssociationConnector Association="Model.RoomTimetable" />
         <AssociationConnector Association="Model.AspNetUsersTeacher" />
         <AssociationConnector Association="Model.AspNetUsersSchool" />
+        <EntityTypeShape EntityType="Model.SchoolTeacher" Width="1.5" PointX="7.75" PointY="8.125" />
+        <AssociationConnector Association="Model.SchoolSchoolTeacher" />
+        <AssociationConnector Association="Model.TeacherSchoolTeacher" />
+        <EntityTypeShape EntityType="Model.UnavaliableHours" Width="1.5" PointX="6" PointY="2.875" />
+        <AssociationConnector Association="Model.SchoolTeacherUnavaliableHours" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

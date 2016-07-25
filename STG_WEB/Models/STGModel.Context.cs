@@ -39,5 +39,6 @@ namespace STG_WEB.Models
         public virtual DbSet<Timetable> Timetable { get; set; }
         public virtual DbSet<School> School { get; set; }
         public virtual DbSet<SchoolTeacher> SchoolTeacher { get; set; }
+        public virtual DbSet<UnavaliableHours> UnavaliableHours { get; set; }
     }
 }
